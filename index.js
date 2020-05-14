@@ -40,7 +40,51 @@ function toggleColor(element) {
   }
 }
 
+const header = document.querySelector('#header')
+header.addEventListener('click', (e) => {
+  toggleColor(document.querySelector("h1#header"))
+})
 
 /***** Deliverable 2 *****/
 
+const playerSubmissionForm = document.querySelector('#new-player-form')
+
+playerSubmissionForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const playerNumber = e.target.number.value
+  const playerName = e.target.name.value
+  const playerNickname = e.target.nickname.value
+  const playerPhoto = e.target.photo.value
+  const playerFromForm = {
+    number: playerNumber,
+    name: playerName,
+    nickname: playerNickname,
+    photo: playerPhoto,
+    likes: 1000
+  }
+  renderPlayer(playerFromForm)
+  e.target.reset()
+})
+
 /***** Deliverable 3 *****/
+
+playerContainer.addEventListener("click", (e) => {
+  console.log(e.target)
+  if (e.target.className === 'like-button') {
+    
+    const currentPlayer = e.target.parentNode
+    let playerLikes;
+
+    for (let i = 0; i < currentPlayer.childNodes.length; i++) {
+      if (currentPlayer.childNodes[i].className == "likes") {
+        playerLikes = currentPlayer.childNodes[i]
+        
+        const playerLikesArr = playerLikes.textContent.split(" ")
+        // console.log(parseInt(playerLikesArr[0]))
+        let currentLikes = parseInt(playerLikesArr[0])
+        currentLikes += 1
+        playerLikes.textContent = `${currentLikes} likes`
+      }
+    }
+  }
+})
